@@ -4,9 +4,9 @@ target/
 !**/src/main/**
 !**/src/test/**
 
-**/src/main/java/**/service/**
-**/src/main/java/**/dao/**
-**/src/main/java/**/entity/**
+**/src/main/java/com/szmachine/service/**
+**/src/main/java/com/szmachine/dao/**
+**/src/main/java/com/szmachine/entity/**
 **/src/main/resources/mapper/**
 online.txt
 
