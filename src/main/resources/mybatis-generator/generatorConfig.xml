@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!-- 配置生成器 -->
+<generatorConfiguration>
+    <!--maven执行generator命令： 在pom文件下执行 mvn mybatis-generator:generate -->
+    <!-- 引入配置文件 -->
+    <properties resource="mybatis-generator/mybatisGeneratorinit.properties"/>
+
+    <!-- 一个数据库一个context -->
+    <!--defaultModelType="flat" 大数据字段，不分表 -->
+    <context id="MysqlTables" targetRuntime="MyBatis3" defaultModelType="flat">
+        <!-- 自动识别数据库关键字，默认false，如果设置为true，根据SqlReservedWords中定义的关键字列表；
+        一般保留默认值，遇到数据库关键字（Java关键字），使用columnOverride覆盖 -->
+        <property name="autoDelimitKeywords" value="true" />
+        <!-- 生成的Java文件的编码 -->
+        <property name="javaFileEncoding" value="utf-8" />
+        <!-- beginningDelimiter和endingDelimiter：指明数据库的用于标记数据库对象名的符号，比如ORACLE就是双引号，MYSQL默认是`反引号； -->
+        <property name="beginningDelimiter" value="`" />
+        <property name="endingDelimiter" value="`" />
+
+        <!-- 格式化java代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <!-- 格式化XML代码 -->
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+
+<!--        <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />-->
+        <!-- 禁用mapper xml 合并功能，和java设置overwrite为true一样。存在的文件将被覆盖。否则会新建一个文件。 -->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
+
+        <!--自定义插件-->
+        <plugin type="com.szmachine.config.my.MyGeneratorPlugin" >
+        </plugin>
+
+        <!-- 注释 -->
+        <commentGenerator type="com.szmachine.config.my.MyCommentGenerator">
+            <property name="suppressAllComments" value="false"/><!-- 是否取消注释 -->
+            <property name="suppressDate" value="true" /> <!-- 是否生成注释代时间戳-->
+            <!-- 时间格式化字符串，使用java.text.SimpleDateFormat构造-->
+            <property name="dateFormat" value="yyyy-MM-dd" />
+            <property name="addRemarkComments" value="true" /> <!-- 生成db中的注释-->
+        </commentGenerator>
+
+
+        <!-- jdbc连接 -->
+        <jdbcConnection driverClass="${jdbc_driver}" connectionURL="${jdbc_url}" userId="${jdbc_user}" password="${jdbc_password}" />
+        <!-- 类型转换 -->
+        <javaTypeResolver>
+            <!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 生成实体类地址 -->
+        <javaModelGenerator targetPackage="com.szmachine.entity" targetProject="${project}" >
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- 生成mapxml文件 -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="${resources}" >
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+        <!-- 生成mapxml对应client，也就是接口dao -->
+        <javaClientGenerator targetPackage="com.szmachine.dao" targetProject="${project}" type="XMLMAPPER" >
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+        <!-- table可以有多个,每个数据库中的表都可以写一个table，tableName表示要匹配的数据库表,
+        也可以在tableName属性中通过使用%通配符来匹配所有数据库表,只有匹配的表才会自动生成文件 -->
+        <!-- table中有5个包含Example的属性，如果有其中一个启用，那么会生成对象的Example类，Example可以实现多种条件的灵活查询，
+        但是比较繁琐，Example类中会有大量的无用代码，这里全部禁用。 -->
+<!--        <table schema="dev" tableName="admin_user" domainObjectName="AdminUser" enableCountByExample="false"  enableUpdateByExample="false" enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false" enableDeleteByPrimaryKey="false" enableDeleteByExample="false">-->
+<!--            <property name="useActualColumnNames" value="false" />-->
+<!--            &lt;!&ndash; 数据库表主键 &ndash;&gt;-->
+<!--            <generatedKey column="id" sqlStatement="Mysql" identity="true" />-->
+
+<!--            &lt;!&ndash;<ignoreColumn column="fred"/> 忽略的行&ndash;&gt;-->
+<!--            &lt;!&ndash;<columnOverride column="BEG_DATE" property="startDate"/>  名称映射&ndash;&gt;-->
+<!--        </table>-->
+        <table schema="dev" tableName="second_hand_accessory" domainObjectName="SecondHandAccessory" enableCountByExample="false"  enableUpdateByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false" enableDeleteByPrimaryKey="false" enableDeleteByExample="false">
+            <property name="useActualColumnNames" value="false" />
+            <!-- 数据库表主键 -->
+            <generatedKey column="id" sqlStatement="Mysql" identity="true" />
+
+            <!--<ignoreColumn column="fred"/> 忽略的行-->
+            <!--<columnOverride column="BEG_DATE" property="startDate"/>  名称映射-->
+        </table>
+
+    </context>
+</generatorConfiguration>

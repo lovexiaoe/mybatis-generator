@@ -1,0 +1,20 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+
+**/src/main/java/**/service/**
+**/src/main/java/**/dao/**
+**/src/main/java/**/entity/**
+**/src/main/resources/mapper/**
+online.txt
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### VS Code ###
+.vscode/

@@ -1,0 +1,47 @@
+mybatis:
+  type-aliases-package: tk.mybatis.springboot.model
+  mapper-locations: classpath:mapper/*.xml
+
+logging:
+  level:
+    tk.mybatis: TRACE
+
+mapper:
+  mappers:
+    - tk.mybatis.springboot.util.MyMapper #注册mapper ，4.0版本后tk中的mapper加了注解，不需要配置
+  #insertSelective等带有Selective的，是否判断字符串!=''。
+  not-empty: true
+  #配置主键生成方式，每种数据库生成方式不一样。
+  identity: MYSQL
+  #实体和表转化的规则，
+  #    normal：原值
+  #    camelhump：驼峰转下划线
+  #    uppercase：转换为大写
+  #    lowercase：转换为小写
+  #    camelhumpAndUppercase：驼峰转下划线大写形式
+  #    camelhumpAndLowercase：驼峰转下划线小写形式
+  style: camelhumpAndLowercase
+  #是否支持（getter和setter）在方法上使用@Column等注解。默认为false。
+  enable-method-annotation: false
+  #数据库字段为简单类型时映射（排除Blob等类型），注意：byte，short等基本类型由于存在默认值，不会当做基本类型。
+  use-simple-type: true
+  #扩展简单类型，默认的简单类型在SimpleTypeUtil 中，
+  #simple-types: xxx.GenderEnum,xxx.JobEnum
+  #将枚举作为简单类型。需要配置typeHandler做处理。
+  enum-as-simple-type: true
+  #定义关键字的处理方式{0}表示关键字，``为mysql的处理方式。
+  #wrapKeyword: `{0}`
+  #默认为false，校验操作的Entity和Mapper是否一致。
+  check-example-entity-class: true
+  #delete是否强制添加查询条件，否则抛出异常。
+  safe-delete: false
+  #类似safe-delete
+  safe-update: false
+  #设置为true后，参数中会添加javaType,如{id, javaType=java.lang.Long}，在<resultMap>也会设置javaType，程序调用时必须和设置的类型一致。
+  use-java-type: false
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+  offsetAsPageNum: true  # RowBounds第一个参数作为pageNum
