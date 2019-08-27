@@ -1,12 +1,7 @@
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**
-!**/src/test/**
 
-**/src/main/java/com/szmachine/service/**
-**/src/main/java/com/szmachine/dao/**
-**/src/main/java/com/szmachine/entity/**
 **/src/main/resources/mapper/**
 online.txt
 
